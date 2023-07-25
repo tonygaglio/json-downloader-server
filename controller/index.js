@@ -1,16 +1,15 @@
 const Downloader = require('nodejs-file-downloader');
 
 const download = async (fileURL, dir = '') => {
-  //Wrapping the code with an async function, just for the sake of example.
-
+  
   const downloader = new Downloader({
-    url: fileURL, //If the file name already exists, a new file with the name 200MB1.zip is created.
+    url: fileURL, //If the file name already exists, a new file with the name and a number postfixed
     directory: `./downloads${dir ? '/' + dir : ''}`, //This folder will be created, if it doesn't exist.
   });
 
   try {
-    const { filePath, downloadStatus } = await downloader.download(); //Downloader.download() resolves with some useful properties.
-
+    const { filePath, downloadStatus } = await downloader.download(); 
+    
     return {
       success: true,
       filePath,
@@ -22,8 +21,6 @@ const download = async (fileURL, dir = '') => {
       error: error,
     };
 
-    //IMPORTANT: Handle a possible error. An error is thrown in case of network errors, or status codes of 400 and above.
-    //Note that if the maxAttempts is set to higher than 1, the error is thrown only if all attempts fail.
   }
 };
 
